@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.administrator.mynews.beans.WeatherBean;
 import com.example.administrator.mynews.utils.GsonUtil;
+import com.example.administrator.mynews.utils.NetWorkUtil;
 import com.example.administrator.mynews.utils.RetrofitUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

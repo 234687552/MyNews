@@ -18,7 +18,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="12dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical">
 
                     <ImageView
@@ -64,11 +65,12 @@
                         android:src="@drawable/biz_plugin_weather_qing" />
 
                     <TextView
+                        android:layout_gravity="center"
                         android:id="@+id/weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
-                        android:text="阵雨转阴"
+                        android:text="阴"
                         android:textColor="#ffffff"
                         android:textSize="20sp" />
                 </LinearLayout>

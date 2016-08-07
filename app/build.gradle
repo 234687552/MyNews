@@ -29,9 +29,4 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.google.code.gson:gson:2.2.4'
-    //侧滑效果
-    compile 'com.mxn.soul:flowingdrawer-core:1.2.5'
-    compile 'com.nineoldandroids:library:2.4.0'
-    //下拉效果
-    compile 'com.yalantis:phoenix:1.2.3'
 }

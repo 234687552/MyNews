@@ -15,9 +15,20 @@ import retrofit2.http.Query;
  * Created by Administrator on 2016/8/3 0003.
  */
 public class RetrofitUtil {
+    private static RetrofitUtil instance;
+    private  RetrofitUtil() {
+    }
+    public static RetrofitUtil getInstance(){
+        if (instance == null) {
+            instance=new RetrofitUtil();
+        }
+        return instance;
+    }
+
 
     //eg: http://wthrcdn.etouch.cn/weather_mini?city=广州
     private static final String BASEURL="http://wthrcdn.etouch.cn/";
+
 
     public interface WeatherService {
        @GET("/weather_mini")
@@ -30,8 +41,8 @@ public class RetrofitUtil {
 
     static public WeatherService weatherService=retrofit.create(WeatherService.class);
 
+    public static <S> S createService(Class<S> serviceClass) {
 
-
-
-
+        return retrofit.create(serviceClass);
+    }
 }

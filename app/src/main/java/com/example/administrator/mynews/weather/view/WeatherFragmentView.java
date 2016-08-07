@@ -62,17 +62,13 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
         this.presenterImpl = (WeatherPresenterImpl) presenterImpl;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.inject(this, view);
-        presenterImpl.refreshWeatherData();
+        presenterImpl.start();
         return view;
     }
 
@@ -93,7 +89,7 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
 //        String cityName=weatherBean.getCity();
         String date=weatherBean.getDate();
         String wind=weatherBean.getWind();
-        String temperature=weatherBean.getLowTemperature()+"℃ ~ "+weatherBean.getHighTemperature()+"℃";
+        String temperature=weatherBean.getLowTemperature().substring(2)+"~"+weatherBean.getHighTemperature().substring(2);
         String type=weatherBean.getWeatherType();
         int imgResource=weatherBean.getImgResource();
         this.city.setText("广州");
@@ -115,7 +111,7 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
             TextView todayWeatherTV = (TextView) view.findViewById(R.id.weather);
 
             dateTV.setText(weatherBean.getDate());
-            todayTemperatureTV.setText(weatherBean.getLowTemperature()+"℃ ~ "+weatherBean.getHighTemperature()+"℃");
+            todayTemperatureTV.setText(weatherBean.getLowTemperature().substring(2)+"~"+weatherBean.getHighTemperature().substring(2));
             todayWindTV.setText(weatherBean.getWind());
             todayWeatherTV.setText(weatherBean.getWeatherType());
             todayWeatherImage.setImageResource(weatherBean.getImgResource());
