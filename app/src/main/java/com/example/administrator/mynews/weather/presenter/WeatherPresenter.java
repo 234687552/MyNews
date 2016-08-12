@@ -1,7 +1,6 @@
 package com.example.administrator.mynews.weather.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.administrator.mynews.beans.WeatherBean;
 import com.example.administrator.mynews.weather.model.WeatherModel;
@@ -20,7 +19,6 @@ public class WeatherPresenter implements WeatherPresenterImpl {
     private WeatherModel weatherModel;
     public WeatherPresenter(WeatherFragmentView weatherView) {
         this.weatherView=weatherView;
-        weatherView.setPresenterImpl(this);//绑定view和Presenter一起.
         weatherModel=new WeatherModel();
     }
 
@@ -29,31 +27,48 @@ public class WeatherPresenter implements WeatherPresenterImpl {
      */
     @Override
     public void refreshWeatherData() {
-        weatherModel.loadWeatherDataFromAPI("广州", new WeatherModelImpl.LoadWeatherDataListener() {
+
+        weatherModel.loadLocationFromService(new WeatherModelImpl.LoadLocationDataListener() {
             @Override
-            public void onSuccess(List<WeatherBean> weatherBeans) {
-                Log.w(TAG, "onSuccess: " );
-                if (weatherBeans != null && weatherBeans.size() > 0) {
-                    weatherView.setToday(weatherBeans.remove(0));
-                    weatherView.setForecast(weatherBeans);
-                    weatherView.hideProgressAndData();
+            public void onSuccess(String city) {
+                Log.w(TAG, "loadLocationFromService: " + city);
+                if (weatherModel == null) {
+                    weatherModel = new WeatherModel();
                 }
+                weatherModel.loadWeatherDataFromService(city, new WeatherModelImpl.LoadWeatherDataListener() {
+                    @Override
+                    public void onSuccess(List<WeatherBean> weatherBeans) {
+                        Log.w(TAG, "loadWeatherDataFromService: succeed");
+                        if (weatherBeans != null &&weatherView!=null&& weatherBeans.size() > 0) {
+                            weatherView.setToday(weatherBeans.remove(0));
+                            weatherView.setForecast(weatherBeans);
+                            weatherView.hideProgressShowData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        weatherView.hideProgressShowData();
+                        Log.w(TAG, "onFailure: " + msg);
+                    }
+                });
             }
 
             @Override
             public void onFailure(String msg) {
-                weatherView.showProgressAndData();
-                Log.w(TAG, "onFailure: " );
+                weatherView.hideProgressShowData();
+                Log.w(TAG, "onFailure: " + msg);
             }
         });
     }
+
 
     /**
      * 一开始就应该做的事：刷新天气
      */
     @Override
     public void start() {
-        weatherView.showProgressAndData();
+        weatherView.showProgressHideData();
         refreshWeatherData();
     }
 

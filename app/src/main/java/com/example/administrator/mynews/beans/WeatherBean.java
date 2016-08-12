@@ -31,7 +31,15 @@ public class WeatherBean {
     private String weatherType;
     private int imgResource;
     private String date;
+    private String city;
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getDate() {
         return date;

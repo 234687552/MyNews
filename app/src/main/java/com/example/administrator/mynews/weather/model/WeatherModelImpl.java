@@ -13,6 +13,11 @@ public interface WeatherModelImpl {
         void onSuccess(List<WeatherBean> weatherBeans);
         void onFailure(String msg);
     }
+    interface LoadLocationDataListener{
+        void onSuccess(String city);
+        void onFailure(String msg);
+    }
 
-    void loadWeatherDataFromAPI(String location,LoadWeatherDataListener listener);
+    void loadWeatherDataFromService(String location, LoadWeatherDataListener listener);
+    void loadLocationFromService(LoadLocationDataListener listener);
 }

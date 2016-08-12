@@ -1,48 +1,41 @@
 package com.example.administrator.mynews.utils;
 
-import com.example.administrator.mynews.beans.WeatherBean;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by Administrator on 2016/8/3 0003.
  */
 public class RetrofitUtil {
+    private static final String TAG = "RetrofitUtil";
+
+
+    private static final String BASEURL="http://ip.taobao.com/service/";
+
     private static RetrofitUtil instance;
-    private  RetrofitUtil() {
+    private Retrofit retrofit;
+    public   RetrofitUtil() {
+        this.retrofit=new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .build();
     }
+
+    //single instance
     public static RetrofitUtil getInstance(){
         if (instance == null) {
-            instance=new RetrofitUtil();
+            synchronized (RetrofitUtil.class){
+
+                if (instance==null){
+                    instance=new RetrofitUtil();
+                    return instance;
+                }
+            }
         }
         return instance;
     }
 
-
-    //eg: http://wthrcdn.etouch.cn/weather_mini?city=广州
-    private static final String BASEURL="http://wthrcdn.etouch.cn/";
-
-
-    public interface WeatherService {
-       @GET("/weather_mini")
-        Call<ResponseBody> getWeather(@Query("city") String cityname);
-    }
-
-    private static Retrofit retrofit=new Retrofit.Builder()
-            .baseUrl(BASEURL)
-            .build();
-
-    static public WeatherService weatherService=retrofit.create(WeatherService.class);
-
-    public static <S> S createService(Class<S> serviceClass) {
-
+    public <S> S createService(Class<S> serviceClass) {
         return retrofit.create(serviceClass);
     }
+
 }

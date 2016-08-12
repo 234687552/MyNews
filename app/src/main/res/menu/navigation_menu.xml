@@ -8,14 +8,14 @@
             android:checked="true"
             android:title="新闻" />
         <item
-            android:id="@+id/navigation_item_images"
-            android:title="图片" />
+            android:id="@+id/navigation_item_relaxs"
+            android:title="轻松一刻" />
         <item
             android:id="@+id/navigation_item_weather"
             android:title="天气" />
 
         <item
-            android:id="@+id/navigation_item_about"
-            android:title="关于" />
+            android:id="@+id/navigation_item_jokes"
+            android:title="段子" />
     </group>
 </menu>

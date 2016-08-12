@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">MyNews</string>
+    <string name="drawer_toggle_open">Open</string>
+    <string name="drawer_toggle_close">Close</string>
+    <string name="weather">新闻</string>
+    <string name="jokes">段子</string>
+    <string name="relax">轻松一刻</string>
+
+    <style name="weacher_title">
+        <item name="android:textSize">21.0sp</item>
+        <item name="android:textColor">@color/weatherTextColor</item>
+    </style>
+
+    <style name="weacher_temp">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/weatherTextColor</item>
+    </style>
+
+    <style name="weacher_weather">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/weatherTextColor</item>
+    </style>
 </resources>

@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -13,11 +14,27 @@ import java.util.Enumeration;
 /**
  * Created by Administrator on 2016/8/7 0007.
  */
-public class NetWorkUtil {
-    private static final String TAG = "NetWorkUtil";
+public class NetInfoUtil {
+    private static final String TAG = "NetInfoUtil";
+    private static NetInfoUtil instance;
+
+    private NetInfoUtil() {
+    }
+    //single instance
+    public static NetInfoUtil getInstance(){
+        if (instance == null) {
+            synchronized (NetInfoUtil.class){
+                if (instance == null) {
+                    instance=new NetInfoUtil();
+                    return instance;
+                }
+            }
+        }
+        return instance;
+    }
 
     /**
-     * 获取Ip地址
+     * 获取本地Ip地址，注意不是外网
      * @return
      */
     public String getIpAddress(){
@@ -26,15 +43,14 @@ public class NetWorkUtil {
                 NetworkInterface intf = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
                         return inetAddress.getHostAddress().toString();
                     }
                 }
             }
-        } catch (SocketException ex) {
-            Log.e(TAG, ex.toString());
+        } catch (Exception e) {
         }
-        return null;
+        return "";
     }
 
     /**
@@ -42,7 +58,7 @@ public class NetWorkUtil {
      * @param context
      * @return
      */
-    public static boolean isNetworkAvailable(Context context) {
+    public  boolean isNetworkAvailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) {

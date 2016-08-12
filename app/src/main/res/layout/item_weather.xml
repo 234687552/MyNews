@@ -19,6 +19,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/biz_plugin_weather_qing" />
     <TextView
+        android:id="@+id/weather"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="阵雨转阴" />
+    <TextView
         android:id="@+id/weatherTemp"
         android:textSize="16sp"
         android:textColor="#ffffff"
@@ -36,12 +44,5 @@
         android:padding="4dp"
         android:text="微风" />
 
-    <TextView
-        android:id="@+id/weather"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="阵雨转阴" />
+
 </LinearLayout>

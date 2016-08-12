@@ -4,19 +4,21 @@ package com.example.administrator.mynews.weather.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.mynews.R;
 import com.example.administrator.mynews.beans.WeatherBean;
+import com.example.administrator.mynews.utils.NetInfoUtil;
+import com.example.administrator.mynews.weather.presenter.WeatherPresenter;
 import com.example.administrator.mynews.weather.presenter.WeatherPresenterImpl;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.List;
 
@@ -43,25 +45,22 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
     TextView wind;
     @InjectView(R.id.weather_forecast)
     LinearLayout weatherForecast;
+
     @InjectView(R.id.weather_layout)
     LinearLayout weatherLayout;
-    @InjectView(R.id.progress)
-    ProgressBar progress;
+
     @InjectView(R.id.swipe_layout)
-    SwipeRefreshLayout swipeLayout;
+    PullToRefreshView swipeLayout;
 
     public WeatherFragmentView() {
     }
 
-    /**
-     * 等待Presenter来绑定
-     * @param presenterImpl
-     */
-    @Override
-    public void setPresenterImpl(Object presenterImpl) {
-        this.presenterImpl = (WeatherPresenterImpl) presenterImpl;
-    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenterImpl = new WeatherPresenter(this);
+    }
 
     @Nullable
     @Override
@@ -69,30 +68,37 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.inject(this, view);
         presenterImpl.start();
+        swipeLayout.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenterImpl.refreshWeatherData();
+            }
+        });
         return view;
     }
 
     @Override
-    public void showProgressAndData() {
-        progress.setVisibility(View.VISIBLE);
+    public void showProgressHideData() {
+        swipeLayout.setRefreshing(true);
         weatherLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void hideProgressAndData() {
-        progress.setVisibility(View.INVISIBLE);
+    public void hideProgressShowData() {
+        swipeLayout.setRefreshing(false);
         weatherLayout.setVisibility(View.VISIBLE);
     }
 
+
     @Override
     public void setToday(WeatherBean weatherBean) {
-//        String cityName=weatherBean.getCity();
-        String date=weatherBean.getDate();
-        String wind=weatherBean.getWind();
-        String temperature=weatherBean.getLowTemperature().substring(2)+"~"+weatherBean.getHighTemperature().substring(2);
-        String type=weatherBean.getWeatherType();
-        int imgResource=weatherBean.getImgResource();
-        this.city.setText("广州");
+        String cityName = weatherBean.getCity();
+        String date = weatherBean.getDate();
+        String wind = weatherBean.getWind();
+        String temperature = weatherBean.getLowTemperature().substring(2) + "~" + weatherBean.getHighTemperature().substring(2);
+        String type = weatherBean.getWeatherType();
+        int imgResource = weatherBean.getImgResource();
+        this.city.setText(cityName);
         this.today.setText(date);
         this.wind.setText(wind);
         this.weatherTemp.setText(temperature);
@@ -102,8 +108,10 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
 
     @Override
     public void setForecast(List<WeatherBean> weatherBeans) {
+        weatherForecast.removeAllViews();
         for (WeatherBean weatherBean : weatherBeans) {
-            View view=LayoutInflater.from(getActivity()).inflate(R.layout.item_weather,null,false);
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_weather, null, false);
+
             TextView dateTV = (TextView) view.findViewById(R.id.date);
             ImageView todayWeatherImage = (ImageView) view.findViewById(R.id.weatherImage);
             TextView todayTemperatureTV = (TextView) view.findViewById(R.id.weatherTemp);
@@ -111,7 +119,7 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
             TextView todayWeatherTV = (TextView) view.findViewById(R.id.weather);
 
             dateTV.setText(weatherBean.getDate());
-            todayTemperatureTV.setText(weatherBean.getLowTemperature().substring(2)+"~"+weatherBean.getHighTemperature().substring(2));
+            todayTemperatureTV.setText(weatherBean.getLowTemperature().substring(2) + "~" + weatherBean.getHighTemperature().substring(2));
             todayWindTV.setText(weatherBean.getWind());
             todayWeatherTV.setText(weatherBean.getWeatherType());
             todayWeatherImage.setImageResource(weatherBean.getImgResource());
@@ -119,6 +127,18 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
         }
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden){
+            swipeLayout.setRefreshing(false);
+        }else {
+            if (weatherLayout.getVisibility()!=View.VISIBLE){
+                swipeLayout.setRefreshing(true);
+                presenterImpl.refreshWeatherData();
+            }
+        }
+        super.onHiddenChanged(hidden);
+    }
 
     @Override
     public void onDestroyView() {

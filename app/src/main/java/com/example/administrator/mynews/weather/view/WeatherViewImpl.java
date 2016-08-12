@@ -1,7 +1,6 @@
 package com.example.administrator.mynews.weather.view;
 
 import com.example.administrator.mynews.beans.WeatherBean;
-import com.example.administrator.mynews.weather.BaseView;
 
 import java.util.List;
 
@@ -9,9 +8,9 @@ import java.util.List;
  * Impl是规定者身份
  * 规定跟随者只能暴露以下方法，不可自己public一个
  */
-public interface WeatherViewImpl extends BaseView {
-    void showProgressAndData();
-    void hideProgressAndData();
+public interface WeatherViewImpl {
+    void showProgressHideData();
+    void hideProgressShowData();
 
     void setToday(WeatherBean weatherBean);
 
