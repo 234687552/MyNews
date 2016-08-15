@@ -9,6 +9,15 @@ public class JokeBean {
     private int downTimes;
     private int upTimes;
     private int replyCount;
+    private String pixel="";
+
+    public String getPixel() {
+        return pixel;
+    }
+
+    public void setPixel(String pixel) {
+        this.pixel = pixel;
+    }
 
     public int getUpTimes() {
         return upTimes;
@@ -60,6 +69,7 @@ public class JokeBean {
             "downTimes": 579,
             "replyCount": 28,
             "upTimes": 2303
+            "pixel": "500*462"
 
             "docid": "BTUDU7VV9001U800",
             "replyid": "BTUDU7VV9001U800",

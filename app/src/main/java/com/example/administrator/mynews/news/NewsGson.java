@@ -10,6 +10,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,9 +27,19 @@ public class NewsGson {
         for (JsonElement jsonElement : array) {
             JsonObject object = jsonElement.getAsJsonObject();
             NewsBean newsBean = GsonUtil.getInstance().gson.fromJson(object, NewsBean.class);
-            Log.w(TAG, "getNewsList: " + newsBean.getDigest());
+            if (!newsBean.getSkipType().equals("live")&&!newsBean.getSkipType().equals("special"))
            newsBeans.add(newsBean);
         }
+        if (newsBeans.size()>0){
+            Collections.sort(newsBeans, new Comparator<NewsBean>() {
+                @Override
+                public int compare(NewsBean lhs, NewsBean rhs) {
+                    return Integer.valueOf(lhs.getReplyCount()) <Integer.valueOf(rhs.getReplyCount()) ?1:
+                            Integer.valueOf(lhs.getReplyCount())==Integer.valueOf(rhs.getReplyCount())?0:-1;
+                }
+            });
+        }
+
         return newsBeans;
     }
 }

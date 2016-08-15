@@ -5,11 +5,20 @@ package com.example.administrator.mynews.beans;
  */
 public class NewsBean {
     private String title;
-    private String skipType;
+    private String skipType="";
     private String postid;
     private String replyCount;
     private String digest;
     private String imgsrc;
+    private String photosetID="";
+
+    public String getPhotosetID() {
+        return photosetID;
+    }
+
+    public void setPhotosetID(String photosetID) {
+        this.photosetID = photosetID;
+    }
 
     public String getDigest() {
         return digest;

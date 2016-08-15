@@ -91,7 +91,6 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         .asGif()
                         .diskCacheStrategy(DiskCacheStrategy.RESULT)
                         .override(imgWidth, imgHeight)
-                        .placeholder(R.drawable.detail_progress)
                         .into(imageView);
             }
             else {
@@ -99,7 +98,6 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         .load(url)
                         .diskCacheStrategy(DiskCacheStrategy.RESULT)
                         .override(imgWidth, imgHeight)
-                        .placeholder(R.drawable.detail_progress)
                         .into(imageView);
             }
 

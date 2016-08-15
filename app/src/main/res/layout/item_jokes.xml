@@ -20,32 +20,42 @@
              />
 
         <TextView
+            android:textSize="@dimen/content_text"
             android:layout_gravity="left"
             android:id="@+id/tv_joke_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
              />
+        <View
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0" />
 
         <RelativeLayout
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <ImageView
-                android:background="@drawable/biz_good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/icon_like"
+                    android:text="@string/icons_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_joke_good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0" />
-                <ImageView
-                    android:background="@drawable/biz_bad"
+
+                <TextView
+                    android:id="@+id/icon_dislike"
+                    android:text="@string/icons_dislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -55,12 +65,7 @@
                     android:text="0" />
 
             </LinearLayout>
-            <View
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#e0e0e0" />
+
             <LinearLayout
                 android:layout_marginRight="5dp"
                 android:orientation="horizontal"
@@ -68,9 +73,9 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
-                <ImageView
-                    android:background="@drawable/bie_reply"
+                <TextView
+                    android:id="@+id/icon_reply"
+                    android:text="@string/icons_reply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView

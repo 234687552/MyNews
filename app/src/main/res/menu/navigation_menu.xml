@@ -6,16 +6,19 @@
         <item
             android:id="@+id/navigation_item_news"
             android:checked="true"
-            android:title="新闻" />
+            android:title="@string/news" />
         <item
             android:id="@+id/navigation_item_relaxs"
-            android:title="轻松一刻" />
+            android:title="@string/relax" />
         <item
             android:id="@+id/navigation_item_weather"
-            android:title="天气" />
+            android:title="@string/weather" />
 
         <item
             android:id="@+id/navigation_item_jokes"
-            android:title="段子" />
+            android:title="@string/jokes" />
+        <item
+            android:id="@+id/navigation_item_gifs"
+            android:title="@string/gifs"/>
     </group>
 </menu>

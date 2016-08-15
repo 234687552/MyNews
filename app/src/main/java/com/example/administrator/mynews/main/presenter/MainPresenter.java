@@ -1,7 +1,7 @@
 package com.example.administrator.mynews.main.presenter;
 
 import com.example.administrator.mynews.R;
-import com.example.administrator.mynews.main.MainActivity;
+import com.example.administrator.mynews.main.view.MainActivity;
 
 /**
  * Created by Administrator on 2016/8/8 0008.
@@ -32,6 +32,9 @@ public class MainPresenter implements MainPresenterImpl{
                 break;
             case R.id.navigation_item_relaxs:
                 mainView.Switch2Relaxs();
+                break;
+            case R.id.navigation_item_gifs:
+                mainView.Switch2Gifs();
                 break;
             default:
                 mainView.Switch2News();

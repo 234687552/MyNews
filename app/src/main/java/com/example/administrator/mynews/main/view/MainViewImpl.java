@@ -8,4 +8,5 @@ public interface MainViewImpl {
     void Switch2Jokes();
     void Switch2News();
     void Switch2Relaxs();
+    void Switch2Gifs();
 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.administrator.mynews.R;
@@ -36,7 +35,7 @@ public class DetailActivity extends Activity implements DetailViewImpl {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         docid=getIntent().getStringExtra("docid");
-        setContentView(R.layout.fragment_detail);
+        setContentView(R.layout.activity_detail);
         ButterKnife.inject(this);
 
         detailPresenter = new DetailPresenter(this);

@@ -31,14 +31,31 @@ public class APIUrl {
     //http://3g.163.com/touch/reconstruct/article/list/BD21K0DLwangning/0-10.html
     public static final String RELAX_URL="http://3g.163.com/touch/reconstruct/article/list/BD21K0DLwangning/";
     /*
-    美图Api
+    图集Api
      */
-    public static final String PHOTOS_URL="http://api.laifudao.com/open/tupian.json";
+    //http://c.3g.163.com/photo/api/jsonp/set/0031/88861.json?callback=photosetinfo
+    public static final String PHOTOSET_URL="http://c.3g.163.com/photo/api/jsonp/set/";
 
     /*
-    某一新闻
+    某一条新闻
      */
     //http://3g.163.com/touch/article/BTQ4VLSK00964LQ9/full.html
     public static final String DETAIL_URL="http://3g.163.com/touch/article/";
+
+    /*
+    gif网址  使用jsoup解析
+     */
+    //http://tu.duowan.com/m/bxgif
+    public static final String GIFLIST_URL="http://tu.duowan.com/m/bxgif";
+
+
+    //http://tu.duowan.com/index.php?r=api/ajaxgallerys&page=1&pageSize=10&callback=jsonp1
+    public static final String GIFLIST_URL_JSON ="http://tu.duowan.com/index.php?r=api/ajaxgallerys&page=1&pageSize=20&callback=jsonp1";
+
+    /*
+    一组GIf地址
+     */
+    //http://tu.duowan.com/index.php?r=show/getByGallery/&gid=127350
+    public static final String GIF_URL="http://tu.duowan.com/index.php?r=show/getByGallery/";
 
 }

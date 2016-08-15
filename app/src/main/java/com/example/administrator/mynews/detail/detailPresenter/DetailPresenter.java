@@ -33,11 +33,12 @@ public class DetailPresenter implements DetailPresenterImpl {
             @Override
             public void onSucceed(DetailBean detailBean) {
                 detailView.loadDetail(detailBean);
+                detailView.hideProgress();
             }
 
             @Override
             public void onFail(String msg) {
-
+                detailView.hideProgress();
             }
         });
     }

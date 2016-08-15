@@ -1,6 +1,7 @@
 package com.example.administrator.mynews.jokes.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,10 @@ import java.util.List;
  * Created by Administrator on 2016/8/9 0009.
  */
 public class JokesAdapter extends RecyclerView.Adapter<JokesAdapter.JokesViewHolder> {
+    private static final String TAG = "JokesAdapter";
     private Context context;
     private List<JokeBean > dataList;
+    private  int width;
     public JokesAdapter(Context context) {
         this.context=context;
     }
@@ -29,6 +32,7 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesAdapter.JokesViewHol
 
     @Override
     public JokesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        width=parent.getWidth();
         JokesViewHolder holder=new JokesViewHolder(LayoutInflater.from(context).inflate(R.layout.item_jokes,parent,false));
         return holder;
     }
@@ -39,11 +43,19 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesAdapter.JokesViewHol
         holder.tvUpTimes.setText(""+dataList.get(position).getUpTimes());
         holder.tvDownTimes.setText(""+dataList.get(position).getDownTimes());
         holder.tvReplyCount.setText("" + dataList.get(position).getReplyCount());
+        holder.iconDislike.setTypeface(Typeface.createFromAsset(context.getAssets(), "dislike.ttf"));
+        holder.iconReply.setTypeface(Typeface.createFromAsset(context.getAssets(),"reply.ttf"));
+        holder.iconLike.setTypeface(Typeface.createFromAsset(context.getAssets(),"like.ttf"));
+
+
         if (dataList.get(position).getImg()!=null){
             holder.ivJokeImg.setVisibility(View.VISIBLE);
+            String[] pixel=dataList.get(position).getPixel().split("\\*");
+            int imgHeight=width*Integer.valueOf(pixel[1])/Integer.valueOf(pixel[0]);
             Glide.with(context)
                     .load(dataList.get(position).getImg())
                     .asBitmap()
+                    .override(width, imgHeight)
                     .into(holder.ivJokeImg);
         }else
             holder.ivJokeImg.setVisibility(View.GONE);
@@ -61,6 +73,11 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesAdapter.JokesViewHol
         private TextView tvDownTimes;
         private TextView tvReplyCount;
         private ImageView ivJokeImg;
+        private TextView iconDislike;
+        private TextView iconReply;
+        private TextView iconLike;
+
+
 
         public JokesViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +86,11 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesAdapter.JokesViewHol
             tvDownTimes= (TextView) itemView.findViewById(R.id.tv_joke_bad);
             tvReplyCount= (TextView) itemView.findViewById(R.id.tv_joke_reply);
             ivJokeImg= (ImageView) itemView.findViewById(R.id.iv_joke_img);
+            iconDislike = (TextView) itemView.findViewById(R.id.icon_dislike);
+            iconReply = (TextView)  itemView.findViewById(R.id.icon_reply);
+            iconLike = (TextView) itemView.findViewById(R.id.icon_like);
+
+
         }
     }
 }

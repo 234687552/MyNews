@@ -27,22 +27,24 @@ public class NewsModel implements NewsModelImpl{
     @Override
     public void loadNewsList(int starIndex, final LoadNewsListListener listener) {
         call= RetrofitUtil.getInstance().createService(NewsService.class).getArtiList(starIndex);
-        Log.w(TAG, "loadArtiList: " + call.request());
+        Log.w(TAG, "loadNewsList: " + call.request());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String jsonString = new String(response.body().bytes());
-                    List<NewsBean> newsBeans=newsGson.getNewsList(jsonString);
-                    listener.onSucceed(newsBeans);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (response!=null){
+                    try {
+                        String jsonString = new String(response.body().bytes());
+                        List<NewsBean> newsBeans=newsGson.getNewsList(jsonString);
+                        listener.onSucceed(newsBeans);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                listener.onFail(t.getMessage());
                 Log.w(TAG, "onFailure: " );
             }
         });

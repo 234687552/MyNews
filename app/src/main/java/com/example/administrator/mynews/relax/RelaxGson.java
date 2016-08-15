@@ -24,7 +24,6 @@ public class RelaxGson {
         for (JsonElement jsonElement : array) {
             JsonObject object = jsonElement.getAsJsonObject();
             RelaxBean relaxBean = GsonUtil.getInstance().gson.fromJson(object, RelaxBean.class);
-            Log.w(TAG, "getArtiList: " + relaxBean.getDigest());
             if (relaxBean.getTitle().indexOf("语音") == -1)
                 relaxBeans.add(relaxBean);
         }

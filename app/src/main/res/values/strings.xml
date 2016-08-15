@@ -2,9 +2,15 @@
     <string name="app_name">MyNews</string>
     <string name="drawer_toggle_open">Open</string>
     <string name="drawer_toggle_close">Close</string>
-    <string name="weather">新闻</string>
+    <string name="weather">天气</string>
     <string name="jokes">段子</string>
     <string name="relax">轻松一刻</string>
+    <string name="news">头条</string>
+    <!--<string name="icons_dislike">&#xe614</string>-->
+    <string name="icons_dislike">\ue614</string>
+    <string name="icons_like">\ue650</string>
+    <string name="icons_reply">\ue715</string>
+    <string name="gifs">搞笑Gif</string>
 
     <style name="weacher_title">
         <item name="android:textSize">21.0sp</item>

@@ -36,7 +36,7 @@ public class RelaxModel implements RelaxModelImpl{
 
                 try {
                     String jsonString = new String(response.body().bytes());
-                    jsonString=jsonString.substring(jsonString.indexOf("(")+1,jsonString.indexOf(")"));
+                    jsonString=jsonString.substring(jsonString.indexOf("(")+1,jsonString.length()-1);
                     List<RelaxBean> relaxBeans=relaxGson.getArtiList(jsonString);
                     listener.onSucceed(relaxBeans);
                 } catch (IOException e) {

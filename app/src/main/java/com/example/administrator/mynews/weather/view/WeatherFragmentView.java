@@ -4,18 +4,16 @@ package com.example.administrator.mynews.weather.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.example.administrator.mynews.R;
 import com.example.administrator.mynews.beans.WeatherBean;
-import com.example.administrator.mynews.utils.NetInfoUtil;
 import com.example.administrator.mynews.weather.presenter.WeatherPresenter;
 import com.example.administrator.mynews.weather.presenter.WeatherPresenterImpl;
 import com.yalantis.phoenix.PullToRefreshView;
@@ -48,9 +46,9 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
 
     @InjectView(R.id.weather_layout)
     LinearLayout weatherLayout;
-
     @InjectView(R.id.swipe_layout)
-    PullToRefreshView swipeLayout;
+    PullRefreshLayout swipeLayout;
+
 
     public WeatherFragmentView() {
     }
@@ -68,7 +66,7 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.inject(this, view);
         presenterImpl.start();
-        swipeLayout.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+        swipeLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenterImpl.refreshWeatherData();
@@ -129,10 +127,10 @@ public class WeatherFragmentView extends Fragment implements WeatherViewImpl {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (hidden){
+        if (hidden) {
             swipeLayout.setRefreshing(false);
-        }else {
-            if (weatherLayout.getVisibility()!=View.VISIBLE){
+        } else {
+            if (weatherLayout.getVisibility() != View.VISIBLE) {
                 swipeLayout.setRefreshing(true);
                 presenterImpl.refreshWeatherData();
             }
